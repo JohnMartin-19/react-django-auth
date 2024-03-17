@@ -20,3 +20,8 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+
+admin.site.site_header = "REACT-DJANGO Admin"
+admin.site.site_title = "REACT-DJANGO Admin Portal"
+admin.site.index_title = "Welcome to REACT-DJANGO Portal"
