@@ -1,4 +1,5 @@
-import React, { createContext, useEffect } from "react";
+/* eslint-disable no-unused-expressions */
+import React, { createContext, useState } from "react";
 import jwt_decode from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
 
@@ -6,16 +7,14 @@ import {useHistory} from 'react-router-dom';
 export const authContext = createContext()
 function Auth({children}){
     
-    const [authTokens,setAuthTokens] = useEffect(() =>{
-        localStorage.getItem('authTokens')
-        ? JSON.parse(localStorage.getItem('authTokens')) : null
-        
-    })
+    const [authTokens,setAuthTokens] = useState(() => 
+        // eslint-disable-next-line no-unused-expressions
+        localStorage.getItem( "authToken" ) ?  JSON.parse(localStorage.getItem("authTokens")) : null
+    )
 
-    const [user,setUser] = useState(() =>{
-        localStorage.getItem("authTokens") 
-        ? jwt_decode(localStorage.getItem('authTokens')) : null
-    })
+    const [user,setUser] = useState(() =>
+        localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null
+    )
 
     const [loading,setLoading] = useState(true)
     const history = useHistory()
@@ -33,7 +32,7 @@ function Auth({children}){
         const data = await response.json()
         console.log(data)
 
-        if(response.status == 200){
+        if(response.status === 200){
             console.log('logged in')
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
