@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import React, { createContext, useState } from "react";
-import jwt_decode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
 
 
@@ -13,7 +13,7 @@ function Auth({children}){
     )
 
     const [user,setUser] = useState(() =>
-        localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null
+        localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null
     )
 
     const [loading,setLoading] = useState(true)
@@ -35,7 +35,7 @@ function Auth({children}){
         if(response.status === 200){
             console.log('logged in')
             setAuthTokens(data)
-            setUser(jwt_decode(data.access))
+            setUser(jwtDecode(data.access))
             localStorage.setItem('authTokens',JSON.stringify(data))
 
         }else{
@@ -48,7 +48,7 @@ function Auth({children}){
         const response = await fetch('http://127.0.0.1:8000/api/v1/register',{
             method:"POST",
             headers:{
-                'Content-Type':'applicxation/json'
+                'Content-Type':'application/json'
             },
             body: JSON.stringify(email, username, password, password2)
         })
