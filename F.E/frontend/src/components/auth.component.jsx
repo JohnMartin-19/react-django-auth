@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { createContext, useState } from "react";
 import {jwtDecode} from 'jwt-decode';
-import {useHistory} from 'react-router-dom';
+import { useNavigate} from "react-router-dom";
 
 
 export const authContext = createContext()
@@ -17,7 +17,7 @@ function Auth({children}){
     )
 
     const [loading,setLoading] = useState(true)
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const loginUser = async (email,password) => {
         const response = await fetch('http://127.0.0.1:8000/api/v1/token/', {
@@ -53,7 +53,7 @@ function Auth({children}){
             body: JSON.stringify(email, username, password, password2)
         })
         if(response.status === 201){
-            history.push('/login')
+            navigate('/login')
         }else{
             console.log(response.status)
             console.log('Internal Server err')
