@@ -7,9 +7,9 @@ import Register from './views/Registerpage'
 import Login from './views/Loginpage'
 function App() {
   return (
-    <div className="App">
-      <h3>REACT-DJANGO AUTHENTICATION</h3>
-    </div>
+    <Router>
+      <auth/>
+    </Router>
   );
 }
 
